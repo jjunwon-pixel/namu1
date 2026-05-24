@@ -1,4 +1,5 @@
 export type Lang = 'ko' | 'en' | 'vi' | 'zh' | 'ja'
+
 export type BookingStatus =
   | 'confirmed'
   | 'completed'
@@ -20,6 +21,7 @@ export interface CreateBookingRequest {
   scheduled_at:   string
   customer_name:  string
   customer_phone: string
+  customer_email?: string
   customer_lang:  Lang
   notes?:         string
 }
@@ -45,4 +47,10 @@ export interface TimeSlot {
   time:      string
   available: boolean
   reason?:   'booked' | 'break' | 'shop_closed'
+}
+
+export interface ApiError {
+  error:   string
+  code?:   string
+  detail?: string
 }
