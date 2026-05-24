@@ -1,7 +1,7 @@
 import { createClient }              from '@supabase/supabase-js'
 import { Redis }                     from '@upstash/redis'
 import { NextRequest, NextResponse } from 'next/server'
-import type { CancelBookingResponse, ApiError } from '@/types/namu'
+import type { CreateBookingResponse, ApiError } from '@/types/namu'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
