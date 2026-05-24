@@ -11,9 +11,10 @@ const redis = Redis.fromEnv()
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const bookingId = params.id?.trim()
+  const { id } = await params
+  const bookingId = id?.trim()
   if (!bookingId) {
     return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 })
   }
@@ -86,12 +87,13 @@ export async function POST(
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const { data: booking } = await supabase
     .from('bookings')
     .select('id, status, scheduled_at, cancel_deadline')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (!booking) {
